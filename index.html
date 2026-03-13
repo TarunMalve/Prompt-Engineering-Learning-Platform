@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>PromptForge — Master the Art of Prompt Engineering</title>
+  <meta name="description" content="PromptForge is a premium, interactive learning platform for mastering Prompt Engineering. Learn Zero-Shot, Few-Shot, Chain-of-Thought, Role Prompting, and advanced AI strategies." />
+  <meta name="keywords" content="prompt engineering, AI prompts, few-shot learning, chain-of-thought, LLM, GPT, Gemini, AI tutorial" />
+  <meta name="author" content="PromptForge" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="PromptForge — Master Prompt Engineering" />
+  <meta property="og:description" content="Premium interactive learning portal for AI Prompt Engineering." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts (pre-connected) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/sidebar.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <style>
+    /* ── Hero Section ─────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: var(--sp-3xl) var(--sp-xl);
+      overflow: hidden;
+      background: var(--grad-hero);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(130,90,255,0.12);
+      border: 1px solid rgba(130,90,255,0.3);
+      border-radius: var(--r-full);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clr-purple-light);
+      margin-bottom: var(--sp-lg);
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      background: var(--clr-purple);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--clr-purple);
+      animation: pulse 2s ease infinite;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: var(--sp-sm);
+      color: var(--clr-text);
+    }
+    .hero-title .accent { color: var(--clr-purple); }
+    .hero-sub {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--clr-purple-light);
+      font-family: var(--font-display);
+      font-weight: 600;
+      margin-bottom: var(--sp-lg);
+      min-height: 2.2rem;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--clr-text-muted);
+      max-width: 58ch;
+      margin-bottom: var(--sp-xl);
+      line-height: 1.8;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-md);
+      align-items: center;
+      margin-bottom: var(--sp-2xl);
+    }
+
+    /* ── Stats Bar ────────────────────────────────────── */
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-xl);
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 2px; }
+    .stat-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--clr-text-dim);
+      font-weight: 500;
+    }
+
+    /* ── Hero Image ───────────────────────────────────── */
+    .hero-visual {
+      position: absolute;
+      right: 4%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      width: min(45%, 520px);
+      pointer-events: none;
+    }
+    .hero-visual img {
+      width: 100%;
+      border-radius: var(--r-xl);
+      border: 1px solid rgba(130,90,255,0.2);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 80px rgba(130,90,255,0.15);
+      opacity: 0.9;
+    }
+    @media (max-width: 1024px) { .hero-visual { display: none; } }
+
+    /* ── Section Headings ─────────────────────────────── */
+    .page-section {
+      padding: var(--sp-3xl) 0;
+    }
+    .page-section-inner {
+      max-width: calc(var(--content-max-w) + 60px);
+      margin: 0 auto;
+      padding: 0 var(--sp-xl);
+    }
+
+    /* ── Coming Soon ──────────────────────────────────── */
+    #coming-soon {
+      padding: var(--sp-3xl) 0;
+      background: linear-gradient(180deg, transparent, rgba(130,90,255,0.04) 50%, transparent);
+    }
+    .coming-section-header {
+      text-align: center;
+      margin-bottom: var(--sp-xl);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .coming-section-header h2 { margin-bottom: var(--sp-sm); }
+    .coming-section-header p  { font-size: 1rem; }
+
+    /* ── About Banner ─────────────────────────────────── */
+    .about-banner {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-lg);
+      padding: var(--sp-lg) var(--sp-xl);
+      margin: var(--sp-xl) var(--sp-xl) 0;
+      background: rgba(130,90,255,0.06);
+      border: 1px solid rgba(130,90,255,0.15);
+      border-radius: var(--r-lg);
+      flex-wrap: wrap;
+    }
+    .about-banner .about-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    .about-banner h3 { font-size: 1.1rem; margin-bottom: 4px; color: var(--clr-text); }
+    .about-banner p  { font-size: 0.88rem; margin: 0; }
+    .about-banner .btn { margin-left: auto; white-space: nowrap; }
+    @media (max-width: 600px) { .about-banner .btn { margin: 0; } }
+
+    /* ── Keyboard shortcut toast ──────────────────────── */
+    #kb-hint {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 10px 20px;
+      background: rgba(8,11,26,0.9);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-full);
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      backdrop-filter: blur(16px);
+      z-index: 500;
+      opacity: 0;
+      transition: opacity var(--t-slow);
+      pointer-events: none;
+    }
+    #kb-hint kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      margin: 0 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ── Reading Progress Bar ──────────────────────────────── -->
+<div class="reading-progress" aria-hidden="true"></div>
+
+<!-- ── Mobile Hamburger ───────────────────────────────────── -->
+<button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- ── Sidebar Overlay ────────────────────────────────────── -->
+<div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     SIDEBAR
+═══════════════════════════════════════════════════════════ -->
+<nav class="sidebar" id="sidebar" aria-label="Topic navigation">
+
+  <!-- Brand -->
+  <a href="#hero" class="sidebar-brand">
+    <div class="brand-logo" aria-hidden="true">⚡</div>
+    <div>
+      <div class="brand-name">Prompt<span>Forge</span></div>
+      <div class="brand-tagline">AI Prompt Engineering Portal</div>
+    </div>
+  </a>
+
+  <!-- Progress -->
+  <div class="sidebar-progress">
+    <div class="progress-label">
+      <span>Learning Progress</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="sidebar-progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Nav Items -->
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-group-label">Getting Started</div>
+      <a class="nav-item active" data-target="hero" href="#hero" tabindex="0">
+        <div class="nav-icon">🏠</div>
+        <span class="nav-text">Home</span>
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Topics</div>
+
+      <a class="nav-item" data-target="intro" href="#intro" tabindex="0">
+        <div class="nav-icon">🧠</div>
+        <span class="nav-text">Introduction to PE</span>
+        <span class="nav-num">01</span>
+      </a>
+
+      <a class="nav-item" data-target="core-techniques" href="#core-techniques" tabindex="0">
+        <div class="nav-icon">⚡</div>
+        <span class="nav-text">Core Techniques</span>
+        <span class="nav-num">02</span>
+      </a>
+
+      <a class="nav-item" data-target="few-shot" href="#few-shot" tabindex="0">
+        <div class="nav-icon">🎯</div>
+        <span class="nav-text">Zero-Shot & Few-Shot</span>
+        <span class="nav-num">03</span>
+      </a>
+
+      <a class="nav-item" data-target="cot" href="#cot" tabindex="0">
+        <div class="nav-icon">🔗</div>
+        <span class="nav-text">Chain-of-Thought</span>
+        <span class="nav-num">04</span>
+      </a>
+
+      <a class="nav-item" data-target="role-prompting" href="#role-prompting" tabindex="0">
+        <div class="nav-icon">🎭</div>
+        <span class="nav-text">Role & Persona</span>
+        <span class="nav-num">05</span>
+      </a>
+
+      <a class="nav-item" data-target="advanced" href="#advanced" tabindex="0">
+        <div class="nav-icon">🚀</div>
+        <span class="nav-text">Advanced Strategies</span>
+        <span class="nav-num">06</span>
+      </a>
+
+      <a class="nav-item" data-target="optimization" href="#optimization" tabindex="0">
+        <div class="nav-icon">🔧</div>
+        <span class="nav-text">Optimization Tips</span>
+        <span class="nav-num">07</span>
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Coming Soon</div>
+      <a class="nav-item" data-target="coming-soon" href="#coming-soon" tabindex="0">
+        <div class="nav-icon">🌟</div>
+        <span class="nav-text">Future Features</span>
+        <span class="badge badge-coming" style="font-size:0.6rem;padding:2px 8px;">New</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Sidebar Footer -->
+  <div class="sidebar-footer">
+    <div class="version-badge">
+      <span class="dot"></span>
+      v1.0 · PromptForge 2025
+    </div>
+  </div>
+
+</nav>
+
+<!-- ════════════════════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════════════════════ -->
+<main class="main-content" id="main-content">
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section id="hero" aria-labelledby="hero-heading">
+
+    <!-- Background effects -->
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="orb orb-3" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <!-- Eyebrow -->
+      <div class="hero-eyebrow hero-fade-in" aria-label="Platform badge">
+        <span class="dot" aria-hidden="true"></span>
+        The #1 Free Prompt Engineering Learning Platform
+      </div>
+
+      <!-- Title -->
+      <h1 class="hero-title hero-fade-in-delay-1" id="hero-heading">
+        Craft Prompts That<br>
+        <span class="accent gradient-text">Actually Work.</span>
+      </h1>
+
+      <!-- Typing -->
+      <div class="hero-sub hero-fade-in-delay-1 typing-cursor" aria-live="polite">
+        <span id="hero-typing"></span>
+      </div>
+
+      <!-- Description -->
+      <p class="hero-desc hero-fade-in-delay-2">
+        PromptForge is your comprehensive, beautifully structured learning hub for Prompt Engineering.
+        From beginner basics to advanced research-grade strategies — master the skill that multiplies
+        your AI productivity by 10×.
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero-actions hero-fade-in-delay-3">
+        <a href="#intro" class="btn btn-primary" id="start-learning-btn">
+          🚀 Start Learning
+        </a>
+        <a href="#coming-soon" class="btn btn-secondary" id="explore-btn">
+          ✨ Explore Features
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats hero-fade-in-delay-3">
+        <div class="stat-item">
+          <div class="stat-num" data-target="7" data-suffix="+"
+               id="stat-topics" aria-label="7+ Topics">0</div>
+          <div class="stat-label">Topics Covered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="30" data-suffix="+"
+               id="stat-examples" aria-label="30+ Examples">0</div>
+          <div class="stat-label">Interactive Examples</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="100" data-suffix="%"
+               id="stat-free" aria-label="100% Free">0</div>
+          <div class="stat-label">Free Forever</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="5" data-suffix="min"
+               id="stat-time" aria-label="5 min per topic">0</div>
+          <div class="stat-label">Per Topic</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Visual -->
+    <div class="hero-visual float-anim" aria-hidden="true">
+      <img src="assets/hero-visual.webp"
+           alt="Futuristic AI Prompt Engineering Interface"
+           loading="lazy"
+           onerror="this.style.display='none'" />
+    </div>
+
+  </section><!-- /hero -->
+
+  <!-- ── About Banner ───────────────────────────────────── -->
+  <div class="about-banner reveal" id="about-banner">
+    <div class="about-icon" aria-hidden="true">📚</div>
+    <div>
+      <h3>What is Prompt Engineering?</h3>
+      <p>The discipline of designing optimal inputs for AI language models. It's the difference between a generic AI response and one that's laser-precise, expertly formatted, and exactly what you need.</p>
+    </div>
+    <a href="#intro" class="btn btn-secondary" id="about-cta">Learn More →</a>
+  </div>
+
+  <!-- ── TOPICS (rendered by content.js) ─────────────────── -->
+  <div id="topics-container" role="main" aria-label="Learning Topics"></div>
+
+  <!-- ── COMING SOON ─────────────────────────────────────── -->
+  <section id="coming-soon" class="page-section" aria-labelledby="coming-soon-heading">
+    <div class="page-section-inner">
+
+      <div class="coming-section-header reveal">
+        <div class="section-label">🔮 What's Next</div>
+        <h2 id="coming-soon-heading">The Future of <span class="gradient-text">PromptForge</span></h2>
+        <p>We're building the most comprehensive AI Prompt Engineering ecosystem on the internet. Here's a sneak peek at what's launching next.</p>
+      </div>
+
+      <div class="coming-soon-grid stagger">
+
+        <!-- Card 1: Marketplace -->
+        <div class="cs-card purple glass-card reveal">
+          <span class="cs-icon">🛒</span>
+          <h3>Prompt Marketplace</h3>
+          <p>Buy, sell, and share battle-tested prompts for every use case. Browse by industry, use case, and model. Earn from your best prompts.</p>
+          <span class="badge badge-coming">🚀 Q2 2025</span>
+        </div>
+
+        <!-- Card 2: PromptAI Training -->
+        <div class="cs-card blue glass-card reveal">
+          <span class="cs-icon">🎓</span>
+          <h3>PromptAI Training</h3>
+          <p>AI-powered personalized learning paths. Get real-time feedback on your prompts, adaptive quizzes, and a certified Prompt Engineer credential.</p>
+          <span class="badge badge-coming">🎓 Q3 2025</span>
+        </div>
+
+        <!-- Card 3: Sector Guides -->
+        <div class="cs-card cyan glass-card reveal">
+          <span class="cs-icon">🏭</span>
+          <h3>Sector-Wise Guides</h3>
+          <p>Deep-dive prompt playbooks for Healthcare, Legal, Finance, Education, Marketing, and Software Engineering — crafted by domain experts.</p>
+          <span class="badge badge-coming">📘 Q4 2025</span>
+        </div>
+
+        <!-- Card 4: Prompt Sandbox -->
+        <div class="cs-card purple glass-card reveal">
+          <span class="cs-icon">⚗️</span>
+          <h3>Live Prompt Sandbox</h3>
+          <p>Test your prompts against GPT-4, Gemini, Claude, and Llama side-by-side. Compare outputs, measure quality scores, and iterate in real-time.</p>
+          <span class="badge badge-coming">🔬 Q2 2025</span>
+        </div>
+
+        <!-- Card 5: Community -->
+        <div class="cs-card blue glass-card reveal">
+          <span class="cs-icon">👥</span>
+          <h3>Community Hub</h3>
+          <p>Join a global community of prompt engineers. Share techniques, participate in weekly challenges, and climb the leaderboard.</p>
+          <span class="badge badge-coming">🌍 Q3 2025</span>
+        </div>
+
+        <!-- Card 6: API Recipes -->
+        <div class="cs-card cyan glass-card reveal">
+          <span class="cs-icon">🔌</span>
+          <h3>API Recipe Library</h3>
+          <p>Ready-to-use code snippets for integrating optimized prompts into your apps via OpenAI, Anthropic, Google, and Cohere APIs.</p>
+          <span class="badge badge-coming">💻 Q1 2026</span>
+        </div>
+
+      </div><!-- /coming-soon-grid -->
+
+      <!-- CTA Strip -->
+      <div style="text-align:center; margin-top: var(--sp-2xl);" class="reveal">
+        <p style="font-size:1.1rem; margin-bottom: var(--sp-lg);">Want early access to these features?</p>
+        <a href="#" class="btn btn-primary" id="notify-me-btn" onclick="alert('Thank you! We\'ll notify you when these features launch. 🚀'); return false;">
+          🔔 Notify Me When Ready
+        </a>
+      </div>
+
+    </div>
+  </section><!-- /coming-soon -->
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <footer role="contentinfo">
+    <div class="footer-brand">
+      ⚡ Prompt<span>Forge</span>
+    </div>
+    <p style="margin-bottom: var(--sp-sm);">
+      The premier free learning resource for AI Prompt Engineering.
+    </p>
+    <p style="font-size:0.78rem;">
+      Built with ❤️ for the AI community · 
+      <a href="#intro">Start Learning</a> · 
+      <a href="#coming-soon">Roadmap</a>
+    </p>
+    <p style="margin-top: var(--sp-md); font-size: 0.75rem; color: var(--clr-text-dim);">
+      © 2025 PromptForge. Free to use and explore.
+    </p>
+  </footer>
+
+</main><!-- /main-content -->
+
+<!-- ── Keyboard Shortcut Toast ───────────────────────────── -->
+<div id="kb-hint" aria-hidden="true">
+  Tip: Use <kbd>Alt</kbd> + <kbd>↓</kbd> / <kbd>↑</kbd> to navigate topics
+</div>
+
+<!-- ── Scripts ────────────────────────────────────────────── -->
+<script src="js/content.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
